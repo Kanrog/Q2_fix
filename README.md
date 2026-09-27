@@ -2,7 +2,7 @@
 
 A collection of scripts to optimize system resources and update configurations on the Qidi Q2 printer.
 
-> **Credits:** Original lists and fixes provided by **MI3**.
+> **Credits:** Original lists and fixes provided to me by **MI3** after his research and testing.
 
 ## How to SSH Into Your Printer
 
