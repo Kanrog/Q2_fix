@@ -3,17 +3,18 @@
 # Qidi Q2 Hybrid Config Fix Script
 # Credits: MI3
 
-CONFIG_PATH=$(find ~ -name "printer.cfg" | head -n 1)
+# Target the standard Klipper config directory explicitly to avoid backups
+CONFIG_PATH=$(find ~/printer_data/config -maxdepth 1 -name "printer.cfg" 2>/dev/null | head -n 1)
 
 if [ -z "$CONFIG_PATH" ]; then
-    echo "Error: Could not find printer.cfg on this system!"
+    echo "Error: Could not find printer.cfg in ~/printer_data/config!"
     exit 1
 fi
 
 CONFIG_DIR=$(dirname "$CONFIG_PATH")
 CUSTOM_PATH="$CONFIG_DIR/custom.cfg"
 
-echo "Found printer.cfg at: $CONFIG_PATH"
+echo "Found active printer.cfg at: $CONFIG_PATH"
 
 # 1. Create custom.cfg for pure additions
 echo "Creating/updating custom.cfg..."
@@ -53,18 +54,18 @@ path = sys.argv[1]
 with open(path, 'r') as f:
     content = f.read()
 
-# Modify [tmc2209 extruder] run_current
-content = re.sub(r'(\[tmc2209 extruder\][^\[]*?run_current:\s*)[\d.]+', r'\10.6', content)
+# Modify [tmc2209 extruder] run_current using \g<1> to prevent group parsing errors
+content = re.sub(r'(\[tmc2209 extruder\][^\[]*?run_current:\s*)[\d.]+', r'\g<1>0.6', content)
 
 # Modify [heater_generic chamber] max_temp
-content = re.sub(r'(\[heater_generic chamber\][^\[]*?max_temp:\s*)\d+', r'\170', content)
+content = re.sub(r'(\[heater_generic chamber\][^\[]*?max_temp:\s*)\d+', r'\g<1>70', content)
 
 # Modify [controller_fan board_fan] stepper
-content = re.sub(r'(\[controller_fan board_fan\][^\[]*?stepper:\s*)[^\n]*', r'\1stepper_x,stepper_y', content)
+content = re.sub(r'(\[controller_fan board_fan\][^\[]*?stepper:\s*)[^\n]*', r'\g<1>stepper_x,stepper_y', content)
 
 # Enable driver_SLOPE_CONTROL:2 for tmc2240 x and y
-content = re.sub(r'(\[tmc2240 stepper_x\][^\[]*?)#\s*(driver_SLOPE_CONTROL:\s*2)', r'\1\2', content)
-content = re.sub(r'(\[tmc2240 stepper_y\][^\[]*?)#\s*(driver_SLOPE_CONTROL:\s*2)', r'\1\2', content)
+content = re.sub(r'(\[tmc2240 stepper_x\][^\[]*?)#\s*(driver_SLOPE_CONTROL:\s*2)', r'\g<1>\2', content)
+content = re.sub(r'(\[tmc2240 stepper_y\][^\[]*?)#\s*(driver_SLOPE_CONTROL:\s*2)', r'\g<1>\2', content)
 
 with open(path, 'w') as f:
     f.write(content)
