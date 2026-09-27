@@ -62,7 +62,7 @@ This script uses a hybrid approach to update your printer configurations safely:
 ### Usage
 Once SSH'd into your printer, run:
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/kanrog/Q2_fix/main/fix.sh)
+bash <(curl -s https://raw.githubusercontent.com/kanrog/Q2_fix/main/cfg_fix.sh)
 ```
 
 ---
