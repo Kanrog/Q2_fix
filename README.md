@@ -2,6 +2,8 @@
 
 A simple script to free up system resources on the Qidi Q2 by disabling unnecessary background services.
 
+> **Credits:** Original list and fix provided by **MI3**.
+
 ## How to SSH Into Your Printer
 
 1. Open your terminal:
@@ -22,7 +24,7 @@ A simple script to free up system resources on the Qidi Q2 by disabling unnecess
 Once you are SSH'd into your printer, run the following one-line command:
 
 ```bash
-bash <(curl -s [https://raw.githubusercontent.com/kanrog/Q2_fix/main/fix.sh](https://raw.githubusercontent.com/kanrog/Q2_fix/main/fix.sh))
+bash <(curl -s https://raw.githubusercontent.com/kanrog/Q2_fix/main/fix.sh)
 ```
 
 After running the script, restart your printer for the best results.
