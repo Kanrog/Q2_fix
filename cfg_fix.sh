@@ -3,11 +3,11 @@
 # Qidi Q2 Hybrid Config Fix Script
 # Credits: MI3
 
-# Target the standard Klipper config directory explicitly to avoid backups
-CONFIG_PATH=$(find ~/printer_data/config -maxdepth 1 -name "printer.cfg" 2>/dev/null | head -n 1)
+# Target the standard Klipper config directory explicitly
+CONFIG_PATH="/home/mks/printer_data/config/printer.cfg"
 
-if [ -z "$CONFIG_PATH" ]; then
-    echo "Error: Could not find printer.cfg in ~/printer_data/config!"
+if [ ! -f "$CONFIG_PATH" ]; then
+    echo "Error: Could not find printer.cfg at $CONFIG_PATH!"
     exit 1
 fi
 
